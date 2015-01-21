@@ -1,9 +1,9 @@
-Zend Skeleton APIs using Doctrine
+Narwi-API
 =======================
 
 Introduction
 ------------
-This is a simple, skeleton application providing REST APIs using the ZF2 and Doctrine. This application is meant to be used as a starting place for those looking to create REST APIs with ZF2, and using Doctrine for ORM support, and database access.
+This is a Zend Framework, Doctrine application for REST APIs for the Narwi application. The rest api's expect and return data in json format. 
 
 Installation
 ------------
@@ -11,25 +11,9 @@ Installation
 Using Composer (recommended)
 ----------------------------
 The recommended way to get a working copy of this project is to clone the repository
-and use `composer` to install dependencies using the `create-project` command:
+and use `composer` to install dependencies using the command:
 
-    curl -s https://getcomposer.org/installer | php --
-    php composer.phar create-project -sdev --repository-url="https://packages.zendframework.com" zendframework/skeleton-application path/to/install
-
-Alternately, clone the repository and manually invoke `composer` using the shipped
-`composer.phar`:
-
-    cd my/project/dir
-    git clone git://github.com/paragshar/zf2-doctrine-rest-api.git
-    cd zf2-doctrine-rest-api
-    php composer.phar self-update
-    php composer.phar install
-
-(The `self-update` directive is to ensure you have an up-to-date `composer.phar`
-available.)
-
-You would then invoke `composer` to install dependencies per the previous
-example.
+    composer install
 
 Creating database using Doctrine Annotations
 ------------
