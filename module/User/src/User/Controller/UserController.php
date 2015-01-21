@@ -4,6 +4,8 @@ namespace User\Controller;
 use User\Controller\AbstractRestfulController;
 use Zend\View\Model\JsonModel;
 
+use User\Exception\NotFoundException;
+
 class UserController extends AbstractRestfulJsonController{
 
     protected $em;
@@ -36,6 +38,8 @@ class UserController extends AbstractRestfulJsonController{
     public function get($id){   
         // Action used for GET requests with resource Id
         $user = $this->getEntityManager()->getRepository('User\Entity\User')->find($id);
+        if(empty($user))
+            throw new NotFoundException('Requested User Not Found');
         return new JsonModel(
     		$user->toArray()
     	);

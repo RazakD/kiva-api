@@ -40,8 +40,7 @@ class Module
         $exception = $e->getParam('exception');
         if($exception){
             $status = $exception->getCode();
-            if($status == 400)
-                $response->setStatusCode(400);
+            $response->setStatusCode($status);
         }
 
         $exceptionJson = array();

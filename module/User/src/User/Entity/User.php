@@ -21,15 +21,9 @@ use User\Entity\Address;
 class User extends Base
 {
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", name="fullname")
      */
-    protected $fname;
-
-    /**
-     * @ORM\Column(type="string")
-     * 
-     */
-    protected $lname;
+    protected $fullName;
 
     /**
      * @ORM\Column(type="string")
@@ -40,12 +34,6 @@ class User extends Base
      * @ORM\Column(type="string", length=100)
      */
     protected $password;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Address", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="address_id", referencedColumnName="id")
-     **/
-    protected $address;
   
     /**
      * Convert the object to an array.
