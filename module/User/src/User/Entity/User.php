@@ -58,7 +58,7 @@ class User extends Base
             $inputFilter = new InputFilter();
  
             $inputFilter->add(array(
-                'name'     => 'fname',
+                'name'     => 'fullName',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
@@ -70,25 +70,6 @@ class User extends Base
                         'options' => array(
                             'encoding' => 'UTF-8',
                             'min'      => 5,
-                            'max'      => 100,
-                        ),
-                    ),
-                ),
-            ));
- 
-            $inputFilter->add(array(
-                'name'     => 'lname',
-                'required' => true,
-                'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 1,
                             'max'      => 100,
                         ),
                     ),
