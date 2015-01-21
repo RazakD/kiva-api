@@ -10,7 +10,8 @@ return array(
         'DoctrineModule',
         'DoctrineORMModule',
         'Application',
-        'User'
+        'User',
+        'Loan'
     ),
     'module_listener_options' => array(
         'module_paths' => array(
