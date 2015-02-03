@@ -8,17 +8,30 @@ use Zend\InputFilter\InputFilter;
 
 use Loan\Entity\Base;
   
-/**
- * Loan Entity
+/** Partner
  *
  * @ORM\Entity
- * @ORM\Table(name="partners")
- * 
+ * @ORM\Table(name="partner")
+ * @property string $name
+ * @property string $status
+ * @property string $country_code
+ * @property string $country
+ * @property string $delinquency_rate
+ * @property string $default_rate
+ * @property string $total_amount_raised
+ * @property string $loans_posted
+ * @property string $url
+ * @property string $theme
+ * @property string $posted_date
+ * @property string $longitude
+ * @property string $longitude
  */
 class Partner extends Base
 {
+    
     /**
      * @ORM\Column(type="string")
+    
      */
     protected $name;
 
@@ -38,12 +51,7 @@ class Partner extends Base
      */
     protected $country;
 
-    /**
-     * @ORM\Column(type="decimal")
-     */
-    protected $delinquency_rate;
-
-    /**
+   /**
      * @ORM\Column(type="decimal")
      */
     protected $default_rate;
@@ -84,7 +92,10 @@ class Partner extends Base
      */
     protected $longitude;
 
-
+/**
+     * @ORM\Column(type="decimal")
+     */
+    protected $delinquency_rate;
   
     /**
      * Convert the object to an array.
@@ -100,7 +111,7 @@ class Partner extends Base
         if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
  
-            $inputFilter->add(array(
+ /*           $inputFilter->add(array(
                 'name'     => 'name',
                 'required' => true,
                 'filters'  => array(
@@ -117,7 +128,7 @@ class Partner extends Base
                         ),
                     ),
                 ),
-            ));
+            ));*/
  
             $this->inputFilter = $inputFilter;
         }

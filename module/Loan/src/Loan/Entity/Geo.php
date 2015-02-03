@@ -1,117 +1,67 @@
 <?php
+  
 namespace Loan\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\InputFilter\InputFilter;
 use Loan\Entity\Base;
-/** Loan
+/** Geo
  * @ORM\Entity
- * @ORM\Table(name="loan")
- * @ORM\Table(name="loan")
- * @property string $status
- * @property string $loan_amount
- * @property string $funded_amount
- * @property string $sector
- * @property string $theme
- * @property string $posted_date
+ * @ORM\Table(name="geo")
+ * @property string $level
+ * @property string $latitude
  * @property string $longitude
- * @property string $longitude
+ * @property string $type
  */
-  class Loan extends Base
+  class Geo extends Base
 {
-    /**
-     * @ORM\ManyToOne(targetEntity="Country",cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
-     **/  
-   protected $country;
+ 
    /**
-     * @ORM\Column(type="string")
-     * 
-     */  
-    protected $status;
-
-    /**
-     * @ORM\Column(type="string", length=2)
+   * @ORM\Column(type="string", length=100)
      */
-    protected $country_code;
-
+   
+      protected $level;
     /**
-     * @ORM\ManyToOne(targetEntity="Location",cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="location_id", referencedColumnName="id")
-     **/
-    protected $location;
-    /**
-     * @ORM\ManyToOne(targetEntity="Partner",cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="partner_id", referencedColumnName="id")
-     **/
-    protected $partner;
-
-
-    /**
-     * @ORM\Column(type="decimal")
-     */
-    protected $loan_amount;
-
-    /**
-     * @ORM\Column(type="decimal")
-     */
-    protected $funded_amount;
-
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    protected $sector;
-
-    /**
-     * @ORM\Column(type="string", length=100)
-     **/
-    protected $theme;
-     /**
-     * @ORM\Column(type="string", length=100)
-     */
-    protected $posted_date;
-
-    /**
-     * @ORM\Column(type="decimal")
+   * @ORM\Column(type="string", length=100)
+     
      */
     protected $latitude;
 
     /**
-     * @ORM\Column(type="decimal")
+   * @ORM\Column(type="string", length=100)
      */
     protected $longitude;
-     
+  /**
+   * @ORM\Column(type="string", length=100)
+     */
+    
+    protected $type;
+
    
- 
+  
     /**
      * Convert the object to an array.
-     *
+     
      * @return array
      */
     
     public function __construct($data){
         parent::__construct($data);
     }
-       
  public function getPartner(){
         return $this->partner;
-    }
-
-    public function getPosteddate(){
-        return $this->posted_date;
-
     }
     public function getInputFilter($em){
         if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
  
-          /*  $inputFilter->add(array(
-                'name'     => 'status',
+            $inputFilter->add(array(
+                'name'     => 'level',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
                 ),
-                     'validators' => array(
+                'validators' => array(
                     array(
                         'name'    => 'StringLength',
                         'options' => array(
@@ -121,10 +71,10 @@ use Loan\Entity\Base;
                         ),
                     ),
                 ),
-            ));*/
+            ));
  
-           /* $inputFilter->add(array(
-                'name'     => 'country_code',
+          /*  $inputFilter->add(array(
+                'name'     => 'latitude',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
@@ -140,31 +90,31 @@ use Loan\Entity\Base;
                         ),
                     ),
                 ),
-            ));*/
-
-            /*$inputFilter->add(array(
-                'name'     => 'loan_amount',
+            ));
+*/
+           /* $inputFilter->add(array(
+                'name'     => 'longitude',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
-                )
-                /*'validators' => array(
+                ),
+               /* 'validators' => array(
                     array(
-                        'name'    => 'country',
-                    ),
+                        'name'    => 'longitude',
+                    )/*,
                     array(
                         'name'  => 'Loan\Validator\NoEntityExists',
                         'options'=>array(
                             'entityManager' =>$em,
-                            'class' => 'Loan\Entity\Country',
-                            'property' => 'country',
+                            'class' => 'Loan\Entity\Geo',
+                            'property' => 'longitude',
                             'exclude' => array(
                                 array('property' => 'id', 'value' => $this->getId())
                             )
                         )
                     )
-                ),
+               
             ));*/
  
             $this->inputFilter = $inputFilter;

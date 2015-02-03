@@ -1,6 +1,5 @@
 <?php
 namespace Loan;
-
 return array(
     'router' => array(
         'routes' => array(
@@ -9,33 +8,35 @@ return array(
                 'options' => array(
                     'route'    => '/',
                     'defaults' => array(
-                        'controller' => 'User\Controller\Index',
+                        'controller' => 'Loan\Controller\Index',
+                      
                     ),
                 ),
             ),
-            'getMyUsers' => array(
+            'plugin' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/user/getMyUsers',
+                    'route'    => '/loan/plugin',
                     'constraints' => array(
                         'id'     => '[0-9]+',
                     ),
                     'defaults' => array(
-                        '__NAMESPACE__' => 'User\Controller',
-                        'controller'    => 'User',
-                        'action'        => 'getMyUsers',
+                        '__NAMESPACE__' => 'Loan\Controller',
+                        'controller'    => 'Loan',
+                        'action'        => 'fetchLoans',
                     ),
                 ),
             ),
-            'user' => array(
+            'loan' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/user[/:id]',
+                    'route'    => '/loan[/:id]',
                     'constraints' => array(
                         'id'     => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller' => 'User\Controller\User',
+                        'controller' => 'Loan\Controller\Loan',
+                       
                     ),
                 ),
             ),
@@ -43,9 +44,16 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'User\Controller\User'   => 'User\Controller\UserController',
+           'Loan\Controller\Loan'   => 'Loan\Controller\LoanController',
+         'KivaPlugin' => 'Loan\Controller\Plugin\KivaPlugin'
         ),
+
     ),
+     'controller_plugins' => array(
+'invokables' => array(
+'KivaPlugin' => 'Loan\Controller\Plugin\KivaPlugin',
+)
+),
     'view_manager' => array(
         'strategies' => array(
             'ViewJsonStrategy',

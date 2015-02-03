@@ -1,40 +1,32 @@
 <?php
   
 namespace Loan\Entity;
-  
 use Doctrine\ORM\Mapping as ORM;
 use Zend\InputFilter\InputFilter;
-  
 /**
  * Base Entity
  * 
  */
 class Base
 {
-
-    protected $inputFilter;
-
-    /**
+protected $inputFilter;
+   /**
      * @ORM\Id
      * @ORM\Column(type="integer");
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
     protected $rawdata;
-
     public function __construct($data){
         $this->set($data);
     }
-
     public function setId($id){
         $this->id = $id;
     }
-
     public function getId(){
         return $this->id;
     }
-
-    public function getInputFilter($em){
+   public function getInputFilter($em){
         if (!$this->inputFilter) {
             $this->inputFilter = new InputFilter();
         }
@@ -83,13 +75,13 @@ class Base
         }
             
         
-        if(count($errorMessages) > 0){
+       /* if(count($errorMessages) > 0){
             if($throwException)
                 throw new \Loan\Exception\DataValidationException($errorMessages);
             else
                 return $errorMessages;
         }else
-            return true;
+            return true;*/
     }
 
     public function set($data){

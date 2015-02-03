@@ -40,7 +40,8 @@ class Module
         $exception = $e->getParam('exception');
         if($exception){
             $status = $exception->getCode();
-            $response->setStatusCode($status);
+            if($status == 400)
+                $response->setStatusCode(400);
         }
 
         $exceptionJson = array();
@@ -77,6 +78,30 @@ class Module
     public function getConfig()
     {
         return include __DIR__ . '/config/module.config.php';
+    }
+    public function getServiceConfig()
+    {
+        return array(
+
+   
+            'factories'=>array(
+   
+        'SanAuth\Model\MyAuthStorage' => function ($sm) {
+            return new \SanAuth\Model\MyAuthStorage('narwi-api');
+        },
+
+        'AuthService' => function ($sm) {
+            $dbAdapter      = $sm->get('Zend\Db\Adapter\Adapter');
+                    $dbTableAuthAdapter  = new DbTableAuthAdapter($dbAdapter, 'users','user_name','pass_word', 'MD5(?)');
+
+            $authService = new AuthenticationService();
+            $authService->setAdapter($dbTableAuthAdapter);
+            $authService->setStorage($sm->get('SanAuth\Model\MyAuthStorage'));
+
+            return $authService;
+        },
+            ),
+        );
     }
 
     public function getAutoloaderConfig()

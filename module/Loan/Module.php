@@ -8,6 +8,7 @@ use Zend\View\Model\JsonModel;
 
 class Module
 {
+  
     public function onBootstrap(MvcEvent $e)
     {
         $eventManager        = $e->getApplication()->getEventManager();
@@ -89,5 +90,7 @@ class Module
                 ),
             ),
         );
-    }
+    } 
+ 
+    
 }

@@ -50,6 +50,7 @@ class UserController extends AbstractRestfulJsonController{
     }
 
     public function create($data){
+       
         $this->getEntityManager();
         $user = new \User\Entity\User($data);
         $user->validate($this->em);

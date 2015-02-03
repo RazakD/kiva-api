@@ -5,12 +5,12 @@ namespace Loan\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use Loan\Entity\Base;
-  
-/**
- * Country Entity
+/** Country
  *
  * @ORM\Entity
- * @ORM\Table(name="countries")
+ * @ORM\Table(name="country")
+ * @property string $region
+ * @property string $name
  * 
  */
 class Country extends Base
@@ -19,7 +19,6 @@ class Country extends Base
      * @ORM\Column(type="string", length=2)
      */
     protected $iso_code;
-
     /**
      * @ORM\Column(type="string")
      * 

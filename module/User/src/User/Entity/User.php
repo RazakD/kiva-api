@@ -1,19 +1,14 @@
 <?php
-  
 namespace User\Entity;
-  
 use Doctrine\ORM\Mapping as ORM;
-
 use Zend\InputFilter\InputFilter;
-
 use User\Entity\Base;
 use User\Entity\Address;
-  
 /**
  * A music album.
  *
  * @ORM\Entity
- * @ORM\Table(name="users")
+ * @ORM\Table(name="user")
  * @property string $fname
  * @property string $lname
  * 
@@ -24,16 +19,19 @@ class User extends Base
      * @ORM\Column(type="string", name="fullname")
      */
     protected $fullName;
-
-    /**
+     /**
      * @ORM\Column(type="string")
      */
     protected $email;
-
     /**
      * @ORM\Column(type="string", length=100)
      */
     protected $password;
+     /**
+     * @ORM\ManyToOne(targetEntity="Address", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="address_id", referencedColumnName="id")
+     **/
+    protected $address;
   
     /**
      * Convert the object to an array.
@@ -69,7 +67,7 @@ class User extends Base
                         'name'    => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
-                            'min'      => 5,
+                            'min'      => 3,
                             'max'      => 100,
                         ),
                     ),
@@ -113,7 +111,7 @@ class User extends Base
                             'class' => 'User\Entity\User',
                             'property' => 'email',
                             'exclude' => array(
-                                array('property' => 'id', 'value' => $this->getId())
+                             array('property' => 'id', 'value' => $this->getId())
                             )
                         )
                     )

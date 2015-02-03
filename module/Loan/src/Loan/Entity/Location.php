@@ -1,87 +1,48 @@
 <?php
+  
 namespace Loan\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Zend\InputFilter\InputFilter;
 use Loan\Entity\Base;
-/** Loan
+
+/** Location
  * @ORM\Entity
- * @ORM\Table(name="loan")
- * @ORM\Table(name="loan")
- * @property string $status
- * @property string $loan_amount
- * @property string $funded_amount
- * @property string $sector
- * @property string $theme
- * @property string $posted_date
- * @property string $longitude
- * @property string $longitude
+ * @ORM\Table(name="location")
+ * @property string $country_code
+ * @property string $country;
+ * @property string $town
+ * @property string $geo
  */
-  class Loan extends Base
+  class Location extends Base
 {
+     /**
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * 
+     */
+      protected $country_code;
     /**
-     * @ORM\ManyToOne(targetEntity="Country",cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
-     **/  
-   protected $country;
-   /**
      * @ORM\Column(type="string")
      * 
-     */  
-    protected $status;
-
-    /**
-     * @ORM\Column(type="string", length=2)
      */
-    protected $country_code;
+    protected $country;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Location",cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="location_id", referencedColumnName="id")
-     **/
-    protected $location;
-    /**
-     * @ORM\ManyToOne(targetEntity="Partner",cascade={"persist", "remove"})
-     * @ORM\JoinColumn(name="partner_id", referencedColumnName="id")
-     **/
-    protected $partner;
-
-
-    /**
-     * @ORM\Column(type="decimal")
+     * @ORM\Column(type="string")
      */
-    protected $loan_amount;
+    protected $town;
 
     /**
-     * @ORM\Column(type="decimal")
+     * @ORM\Column(type="string")
      */
-    protected $funded_amount;
-
-    /**
-     * @ORM\Column(type="string", length=100)
-     */
-    protected $sector;
-
-    /**
-     * @ORM\Column(type="string", length=100)
-     **/
-    protected $theme;
-     /**
-     * @ORM\Column(type="string", length=100)
-     */
-    protected $posted_date;
-
-    /**
-     * @ORM\Column(type="decimal")
-     */
-    protected $latitude;
-
-    /**
-     * @ORM\Column(type="decimal")
-     */
-    protected $longitude;
-     
    
- 
+   
+      /**
+     * @ORM\OneToOne(targetEntity="Geo",cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="geo_id", referencedColumnName="id")
+     **/
+    protected $geo;
+   
     /**
      * Convert the object to an array.
      *
@@ -91,37 +52,12 @@ use Loan\Entity\Base;
     public function __construct($data){
         parent::__construct($data);
     }
-       
  public function getPartner(){
         return $this->partner;
-    }
-
-    public function getPosteddate(){
-        return $this->posted_date;
-
     }
     public function getInputFilter($em){
         if (!$this->inputFilter) {
             $inputFilter = new InputFilter();
- 
-          /*  $inputFilter->add(array(
-                'name'     => 'status',
-                'required' => true,
-                'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
-                     'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array(
-                            'encoding' => 'UTF-8',
-                            'min'      => 5,
-                            'max'      => 100,
-                        ),
-                    ),
-                ),
-            ));*/
  
            /* $inputFilter->add(array(
                 'name'     => 'country_code',
@@ -135,21 +71,41 @@ use Loan\Entity\Base;
                         'name'    => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
+                            'min'      => 5,
+                            'max'      => 100,
+                        ),
+                    ),
+                ),
+            ));
+ 
+      /*      $inputFilter->add(array(
+                'name'     => 'status',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+              /* 'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
                             'min'      => 1,
                             'max'      => 100,
                         ),
                     ),
                 ),
+                
             ));*/
 
-            /*$inputFilter->add(array(
-                'name'     => 'loan_amount',
+            $inputFilter->add(array(
+               /* 'name'     => 'country_code',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'StripTags'),
                     array('name' => 'StringTrim'),
-                )
-                /*'validators' => array(
+                ),
+             /*   'validators' => array(
                     array(
                         'name'    => 'country',
                     ),
@@ -157,15 +113,15 @@ use Loan\Entity\Base;
                         'name'  => 'Loan\Validator\NoEntityExists',
                         'options'=>array(
                             'entityManager' =>$em,
-                            'class' => 'Loan\Entity\Country',
+                            'class' => 'Loan\Entity\Loan',
                             'property' => 'country',
                             'exclude' => array(
                                 array('property' => 'id', 'value' => $this->getId())
                             )
                         )
                     )
-                ),
-            ));*/
+                ),*/
+            ));
  
             $this->inputFilter = $inputFilter;
         }

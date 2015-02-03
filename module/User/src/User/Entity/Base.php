@@ -86,8 +86,10 @@ class Base
         if(count($errorMessages) > 0){
             if($throwException)
                 throw new \User\Exception\DataValidationException($errorMessages);
-            else
-                return $errorMessages;
+            else{
+               return $errorMessages;
+            }
+            
         }else
             return true;
     }
